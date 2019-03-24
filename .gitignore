@@ -1,0 +1,6 @@
+__pycache__
+.*.swo
+.*.swp
+catboost_info
+.ipynb_checkpoints
+data

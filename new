@@ -1,0 +1,6 @@
+#!/bin/sh
+mkdir $1
+mkdir $1/data
+cp plate.ipynb $1/start.ipynb
+cd $1
+jupyter notebook
