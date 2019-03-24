@@ -26,10 +26,10 @@ def plot_pairs(X):
     sns.pairplot(X.dropna())
 
 
-def train_model(model, X, y):
-    y_pred = cross_val_predict(model, X_train, y_train, cv=5)
-    print("R2: {}".format(r2_score(y_pred, y_train)))
-    print("RMSLE: {}".format(np.sqrt(mean_squared_error(y_pred, y_train))))
+def train_regressor(model, X, y):
+    y_pred = cross_val_predict(model, X, y, cv=5)
+    print("R2: {}".format(r2_score(y_pred, y)))
+    print("RMSLE: {}".format(np.sqrt(mean_squared_error(y_pred, y))))
     plt.figure()
-    plt.scatter(y_pred, y_train)
+    plt.scatter(y_pred, y)
     plt.title("CV Results")
