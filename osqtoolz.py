@@ -29,7 +29,7 @@ def plot_pairs(X):
 def train_regressor(model, X, y):
     y_pred = cross_val_predict(model, X, y, cv=5)
     print("R2: {}".format(r2_score(y_pred, y)))
-    print("RMSLE: {}".format(np.sqrt(mean_squared_error(y_pred, y))))
+    print("RMSE: {}".format(np.sqrt(mean_squared_error(y_pred, y))))
     plt.figure()
     plt.scatter(y_pred, y)
     plt.title("CV Results")
