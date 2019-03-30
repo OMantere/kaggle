@@ -8,6 +8,28 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import r2_score, mean_squared_error
 
 
+def date_numeric(date_series):
+    date_series = pd.to_datetime(date_series)
+    return (date_series - date_series.min())  / np.timedelta64(1,'D')
+
+
+def date_feature(df, col):
+    df['date_numeric_{}'.format(col)] = date_numeric(df[col])
+    return df
+    
+
+def len_feature(df, col):
+    df['{}_len'.format(col)] = df[col].apply(lambda x: len(x))
+    df['{}_len'.format(col)] = df[col].apply(lambda x: len(x) if type(x) == str else x)
+    len_mean = int(math.ceil(df['{}_len'.format(col)].mean()))
+    df['{}_len'.format(col)] = df['{}_len'.format(col)].apply(lambda x: len_mean if np.isnan(x) else x)
+    return df
+
+
+def onehot(df, col):
+    return pd.concat([pd.get_dummies(df['col'], prefix='{}_onehot'.format(col))])
+
+
 def checkna(X):
     n = len(X)
     nans = X.isna()
@@ -33,3 +55,4 @@ def train_regressor(model, X, y):
     plt.figure()
     plt.scatter(y_pred, y)
     plt.title("CV Results")
+
